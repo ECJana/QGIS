@@ -327,6 +327,11 @@ MinGW).
 This section describes the setup required to allow Visual Studio to be used to
 build QGIS. 
 
+  If you have any of the following combinfation of software installed, see notes prefixed with #VS2010
+  - ARCGIS
+  - VS 2010
+  - VS 2013
+  - Windows 7
 
     4.1.1. Visual C++ Express Edition
     =================================
@@ -371,10 +376,16 @@ and from OSGeo4W (select Advanced Installation):
 - pyqt4
 - qt4-devel
 - qwt5-devel-qt4
+- qwt (6) -> might be needed with the addition of QWTPolar (http://sourceforge.net/projects/qwt/)
+          -> qt creator can be used to compile and install. (Best on windows)
+          -> override the osgeoW4 qwt/lib and qwt/include is needed.
+          
 - sip
 - spatialite
 - libspatialindex-devel
 - python-qscintilla
+- QWTPolar              -> newer versions of QGIS will ask for QWTPolar to be installed. (http://sourceforge.net/projects/qwtpolar/)
+                        -> qt creator can be used to compile and install. (Best on windows)
 
 This will also select packages the above packages depend on.
 
@@ -394,6 +405,9 @@ updates that are not yet reflected here.
 To start a command prompt with an environment that both has the VC++ and the OSGeo4W
 variables create the following batch file (assuming the above packages were
 installed in the default locations):
+
+#VS2010
+  You might need to run the VS 2010 version of vcvarall.bat, if you get errors the cl.exe.
 
   @echo off
   set VS90COMNTOOLS=%PROGRAMFILES%\Microsoft Visual Studio 9.0\Common7\Tools\
@@ -420,6 +434,14 @@ git to the source directory QGIS:
 Create a 'build' directory somewhere. This will be where all the build output
 will be generated.
 
+#VS2010
+    While the GUI makes it easier to apply configuration paths that might be missing, the command-line 
+    gives better verbose error and warning messages. 
+    
+    Use the command below to run the cmake, and update the file "..\build\CMAKECACH.txt" to make config changes.
+    
+      cmake -G "Visual Studio 9 2008" --build .
+
 Now run cmake-gui (still from cmd) and in the Where is the source code:
 box, browse to the top level QGIS directory.
 
@@ -442,6 +464,9 @@ click Generate.
 Now close cmake-gui and continue on the command prompt by starting
 vcexpress.  Use File / Open / Project/Solutions and open the
 qgis-x.y.z.sln File in your project directory.
+
+#VS2010
+    You can convert the VS 9 sln to 2010+ after.
 
 Change Solution Configuration from Debug to RelWithDebInfo (Release
 with Debug Info)  or Release before you build QGIS using the ALL_BUILD
@@ -506,7 +531,7 @@ look at:
 
 ms-windows/osgeo4w/package.cmd
 
-
+    
   4.2. Building using MinGW
   =========================
 
