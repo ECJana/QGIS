@@ -47,13 +47,13 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-#ifdef WIN32
+#ifdef _WIN32
 // Open files in binary mode
 #include <fcntl.h> /*  _O_BINARY */
 #include <windows.h>
 #include <dbghelp.h>
 #include <time.h>
-#ifdef MSVC
+#ifdef _MSC_VER
 #undef _fmode
 int _fmode = _O_BINARY;
 #else
@@ -410,7 +410,7 @@ int main( int argc, char *argv[] )
 #endif
 
   QgsDebugMsg( QString( "Starting qgis main" ) );
-#ifdef WIN32  // Windows
+#ifdef _WIN32  // Windows
 #ifdef _MSC_VER
   _set_fmode( _O_BINARY );
 #else //MinGW
