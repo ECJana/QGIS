@@ -270,7 +270,8 @@ class QgsGrass
     // set environment variable
     static GRASS_LIB_EXPORT void putEnv( QString name, QString value );
 
-#if defined(WIN32)
+// bug: #if defined() incorrect syntax.
+#ifdef _WIN32
     static GRASS_LIB_EXPORT QString shortPath( const QString &path );
 #endif
 
