@@ -27,10 +27,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#ifdef WIN32
+#ifdef _WIN32
 // Open files in binary mode
 #include <fcntl.h> /*  _O_BINARY */
-#ifdef MSVC
+#ifdef _MSC_VER
 #undef _fmode
 int _fmode = _O_BINARY;
 #else
@@ -112,7 +112,7 @@ static QStringList myFileList;
 
 int main( int argc, char *argv[] )
 {
-#ifdef WIN32  // Windows
+#ifdef _WIN32  // Windows
 #ifdef _MSC_VER
   _set_fmode( _O_BINARY );
 #else //MinGW
@@ -152,7 +152,7 @@ int main( int argc, char *argv[] )
   // user settings (~/.qgis) and it will be used for QSettings INI file
   QString configpath;
 
-#ifndef WIN32
+#ifndef _WIN32
   ////////////////////////////////////////////////////////////////
   // USe the GNU Getopts utility to parse cli arguments
   // Invokes ctor `GetOpt (int argc, char **argv,  char *optstring);'
