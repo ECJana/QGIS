@@ -327,6 +327,13 @@ MinGW).
 This section describes the setup required to allow Visual Studio to be used to
 build QGIS. 
 
+If you have any combination of the following software installed, see notes atgged with #VS2010
+for possible additions to this process.
+			- Windows 7
+			- VS 2010
+			- VS 2013
+			- ARCGIS (already will have a version of python installed.)
+			
 
     4.1.1. Visual C++ Express Edition
     =================================
@@ -376,6 +383,13 @@ and from OSGeo4W (select Advanced Installation):
 - libspatialindex-devel
 - python-qscintilla
 
+#VS2010
+-	QWTPolar 		-> This is needed for version 2.8+ This is not included in OSGEW$ yet. (http://sourceforge.net/projects/qwtpolar/)
+- 	QWT v6			-> OSGEow4 does not have v6 yet; which is needed for QWTPolar.  (http://sourceforge.net/projects/qwt)
+					-> follow the INSTALL file, and you can copy over the OSGEOW4 qwt files, if you already have it installed.
+
+
+
 This will also select packages the above packages depend on.
 
 Earlier versions of this document also covered how to build all above
@@ -394,6 +408,9 @@ updates that are not yet reflected here.
 To start a command prompt with an environment that both has the VC++ and the OSGeo4W
 variables create the following batch file (assuming the above packages were
 installed in the default locations):
+
+#VS2010
+You can cange the version number of VS from 9.0, and this will still work.
 
   @echo off
   set VS90COMNTOOLS=%PROGRAMFILES%\Microsoft Visual Studio 9.0\Common7\Tools\
@@ -420,6 +437,15 @@ git to the source directory QGIS:
 Create a 'build' directory somewhere. This will be where all the build output
 will be generated.
 
+
+#VS2010
+Cmake-GUI is useful in applying updates to configuration. It does not give great error messages.
+Use the following command, to get better details, if you come across issues. 
+	cmake -G "Visual Studio 9 2008" --build .
+
+There is a bug with the installation of VS 2010, 2013; with how rcc, cl and mt are located. 
+It is best to run this under VS 9 2008, for the compiler. You can upgrade the project later, if you wish.
+	
 Now run cmake-gui (still from cmd) and in the Where is the source code:
 box, browse to the top level QGIS directory.
 
@@ -447,6 +473,9 @@ Change Solution Configuration from Debug to RelWithDebInfo (Release
 with Debug Info)  or Release before you build QGIS using the ALL_BUILD
 target (otherwise you need debug libraries that are not included).
 
+#VS2010
+Make sure you delete the 'Debug' configuration from the list. It can cause issues later on.
+
 After the build completed you should install QGIS using the INSTALL target.
 
 Install QGIS by building the INSTALL project. By default this will install to
@@ -455,6 +484,10 @@ CMAKE_INSTALL_PREFIX variable in cmake-gui).
 
 You will also either need to add all the dependency DLLs to the QGIS install
 directory or add their respective directories to your PATH.
+
+#VS2010
+You can use DependancyWalker (http://www.dependencywalker.com/) to help you get the list of DLLs. 
+Then this list can be added to a Post-Build command to move the dependencies for you.
 
 
     4.1.4. Packaging
