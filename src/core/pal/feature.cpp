@@ -41,6 +41,9 @@
 #include <qglobal.h>
 
 #include <cmath>
+#ifdef _WIN32
+#include <math.h>
+#endif
 #include <cstring>
 #include <cfloat>
 
@@ -82,7 +85,13 @@ namespace pal
       , repeatDist( 0.0 )
       , alwaysShow( false )
   {
-    assert( finite( lx ) && finite( ly ) );
+// microsoft vs 2010+ has a different version and name.
+// cmath and math.h are needed.
+#ifdef _WIN32
+    assert( _finite( lx ) && _finite( ly ) );
+#else
+	   assert( finite( lx ) && finite( ly ) );
+#endif
 
     uid = new char[strlen( geom_id ) +1];
     strcpy( uid, geom_id );
